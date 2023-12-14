@@ -1,19 +1,39 @@
-import { useState } from 'react';
-import Header from '../../components/header/Header';
-import Footer from '../../components/footer/Footer';
-import './ProductDetailsPage.css';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import Product from './Product';
+import BundleProduct from './BundleProduct';
+import { getProduct } from '../../service/shopService';
 
 const PDP = () => {
-  const [basketItems, setBasketItems] = useState([
-    { id: 1, name: 'Item 1', quantity: 2 },
-    { id: 2, name: 'Item 2', quantity: 1 },
-  ]);
+  const { productId } = useParams();
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const product = await getProduct(productId);
+
+      if (product.fault) {
+        console.error(product.fault.message);
+      } else {
+        setProduct(product);
+        // console.log(product);
+      }
+    };
+    fetchProduct();
+  }, [productId]);
+
+  if (!product) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <div>
-      <Header basketItems={basketItems} />
-      <main className="pdp-main">PDP</main>
-      <Footer />
-    </div>
+    <>
+      {product.type.bundle ? (
+        <BundleProduct product={product} />
+      ) : (
+        <Product product={product} />
+      )}
+    </>
   );
 };
 
