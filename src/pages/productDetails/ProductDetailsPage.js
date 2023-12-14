@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Product from './Product';
 import BundleProduct from './BundleProduct';
 import { getProduct } from '../../service/shopService';
+import Spinner from 'react-bootstrap/Spinner';
 
 const PDP = () => {
   const { productId } = useParams();
@@ -23,7 +24,13 @@ const PDP = () => {
   }, [productId]);
 
   if (!product) {
-    return <p>Loading...</p>;
+    return (
+      <div className='d-flex align-items-center justify-content-center' style={{ height: '100vh' }}>
+        <Spinner animation='border' role='status'>
+          <span className='visually-hidden'>Loading...</span>
+        </Spinner>
+      </div>
+    );
   }
 
   return (
