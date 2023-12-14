@@ -15,3 +15,11 @@ export const getExistingBasketEndpoint = (basketId) => `${BASE_URL}/baskets/${ba
 export const getAddProductItemEndpoint = (basketId) => `${BASE_URL}/baskets/${basketId}/items`; 
 
 export const getRemoveProductItemEndpoint = (basketId, productId) => `${BASE_URL}/baskets/${basketId}/items/${productId}`;
+
+export const getAddShippingMethodsEndpoint = (basketId, shipmentId) => `${BASE_URL}/baskets/${basketId}/shipments/${shipmentId}/shipping_method`;
+
+export const getShippingMethodsEndpoint = (basketId, shipmentId) => `${BASE_URL}/baskets/${basketId}/shipments/${shipmentId}/shipping_methods`;
+
+export const getAddShippingAddressEndpoint = (basketId, shipmentId) => `${BASE_URL}/baskets/${basketId}/shipments/${shipmentId}/shipping_address`;
+
+export const getAddBillingAddressEndpoint = (basketId) => `${BASE_URL}/baskets/${basketId}/billing_address`;

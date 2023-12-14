@@ -9,6 +9,7 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Cart from './pages/cart/Cart';
 import HomePage from './pages/home/Homepage';
+import Checkout from './pages/checkout/Checkout';
 
 const ProductDetailsPage = lazy(() =>
   import('./pages/productDetails/ProductDetailsPage')
@@ -26,6 +27,7 @@ const App = () => {
             <Route index element={<HomePage />} />
             <Route path='/:productId' element={<ProductDetailsPage />} />
             <Route path='/cart' element={<Cart />} />
+            <Route path='/checkout' element={<Checkout />} />
             <Route path='/page-not-found' element={<PageNotFound />} />
             <Route path='*' element={<PageNotFound />} />
           </Routes>
