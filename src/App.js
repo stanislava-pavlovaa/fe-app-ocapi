@@ -4,10 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { getJWTToken } from './service/ocapiService';
+import { CartProvider } from './context/CartContext';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import { useState } from 'react';
-import { CartProvider } from './context/CartContext';
+import Cart from './pages/cart/Cart';
+import HomePage from './pages/home/Homepage';
 
 const ProductDetailsPage = lazy(() =>
   import('./pages/productDetails/ProductDetailsPage')
@@ -16,23 +17,20 @@ const PageNotFound = lazy(() => import('./pages/notFound/pageNotFound'));
 
 const App = () => {
   getJWTToken();
-  const [basketItems, setBasketItems] = useState([
-    { id: 1, name: 'Item 1', quantity: 2 },
-    { id: 2, name: 'Item 2', quantity: 1 },
-  ]);
   return (
     <CartProvider>
       <BrowserRouter>
-        <Header basketItems={basketItems} />
+        <Header />
         <main className='page-main'>
           <Routes>
-            {/* <Route index element={<ProductDetailsPage />} /> */}
+            <Route index element={<HomePage />} />
             <Route path='/:productId' element={<ProductDetailsPage />} />
+            <Route path='/cart' element={<Cart />} />
             <Route path='/page-not-found' element={<PageNotFound />} />
             <Route path='*' element={<PageNotFound />} />
           </Routes>
         </main>
-        {/* <Footer /> */}
+        <Footer />
       </BrowserRouter>
     </CartProvider>
   );

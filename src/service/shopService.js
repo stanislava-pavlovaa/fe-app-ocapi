@@ -1,4 +1,4 @@
-import { get, post } from './ocapiService';
+import { get, post, deleteAction } from './ocapiService';
 import {
   getProductEndpoint,
   CREATE_BASKET_URL,
@@ -24,7 +24,7 @@ export const addProductToCart = async (basketId, productData) => {
 };
 
 export const removeProductFromCart = async (basketId, productId) => {
-  const cart = await post(getRemoveProductItemEndpoint(basketId, productId));
-  // console.log('removefromcart', cart);
+  const cart = await deleteAction(getRemoveProductItemEndpoint(basketId, productId));
+  console.log('removefromcart', cart);
   return cart;
 };
