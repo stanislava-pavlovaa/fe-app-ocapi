@@ -29,8 +29,8 @@ export const removeProductFromCart = async (basketId, productId) => {
   return cart;
 };
 
-export const addShippingMethod = async (basketId, shippingMethodId) => {
-  const cart = await put(getAddShippingMethodsEndpoint(basketId), { id: shippingMethodId });
+export const addShippingMethod = async (basketId, shipmentId, selectedShippingMethodId) => {
+  const cart = await put(getAddShippingMethodsEndpoint(basketId, shipmentId), { id: selectedShippingMethodId });
   return cart;
 };
 
@@ -39,7 +39,7 @@ export const getShippingMethods = async (basketId, shippingMethodId) => {
   return shippingMethods;
 };
 
-export const addShippingAddress = async (basketId, shippingMethodId, shippingData) => {
-  const shippingAddress = await put(getAddShippingAddressEndpoint(basketId, shippingMethodId), shippingData);
+export const addShippingAddress = async (basketId, shipmentId, shippingData) => {
+  const shippingAddress = await put(getAddShippingAddressEndpoint(basketId, shipmentId), shippingData);
   return shippingAddress;
 };

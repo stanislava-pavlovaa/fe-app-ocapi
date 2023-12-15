@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useCartContext } from '../../context/CartContext';
-import {
-  addShippingAddress,
-  addShippingMethod,
-  getShippingMethods,
-} from '../../service/shopService';
+import { addShippingAddress, addShippingMethod,getShippingMethods } from '../../service/shopService';
 import { createAddressBody } from '../../utils/Forms';
 
-const ShippingForm = ({setIsShippingFormReady}) => {
+const ShippingForm = ({ setIsShippingFormReady }) => {
   const { cart, setCart } = useCartContext();
-  const shippingMethodId = cart?.shipments[0].shipment_id;
   const basketId = cart?.basket_id;
+  const shipmentId = cart?.shipments[0].shipment_id;
   const [shippingMethods, setShippingMethods] = useState([]);
   const [selectedMethodId, setSelectedMethodId] = useState('');
   const [shippingInfo, setShippingInfo] = useState({});
@@ -18,7 +14,7 @@ const ShippingForm = ({setIsShippingFormReady}) => {
   useEffect(() => {
     const fetchShippingMethods = async () => {
       try {
-        const methods = await getShippingMethods(basketId, shippingMethodId);
+        const methods = await getShippingMethods(basketId, shipmentId);
         setShippingMethods(methods.applicable_shipping_methods);
       } catch (error) {
         console.error('Error fetching shipping methods:', error);
@@ -26,7 +22,7 @@ const ShippingForm = ({setIsShippingFormReady}) => {
     };
 
     fetchShippingMethods();
-  }, [basketId, shippingMethodId]);
+  }, [basketId, shipmentId]);
 
   const handleShippingMethodChange = (event) => {
     const selectedId = event.target.value;
@@ -44,10 +40,21 @@ const ShippingForm = ({setIsShippingFormReady}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const shippingMethod = await addShippingMethod(basketId, selectedMethodId);
-    const formData = createAddressBody(shippingInfo);
-    console.log(formData);
-    // const newAddress = await addShippingAddress(basketId, formData);
+    try {
+      const shippingMethod = await addShippingMethod(basketId, shipmentId, selectedMethodId);
+      const formData = createAddressBody(shippingInfo);
+      const shippingAddress = await addShippingAddress(basketId, shipmentId, formData);
+
+      setCart((prevCart) => ({
+        ...prevCart,
+        ...shippingMethod,
+        ...shippingAddress,
+      }));
+
+      setIsShippingFormReady(true);
+    } catch (error) {
+      console.error('Error updating cart:', error);
+    }
   };
 
   return (
@@ -58,7 +65,7 @@ const ShippingForm = ({setIsShippingFormReady}) => {
         <input
           type='text'
           name='firstName'
-          value={shippingInfo.firstName}
+          value={shippingInfo.firstName || ''}
           placeholder='First name'
           required
           className='form-control'
@@ -69,7 +76,7 @@ const ShippingForm = ({setIsShippingFormReady}) => {
         <input
           type='text'
           name='lastName'
-          value={shippingInfo.lastName}
+          value={shippingInfo.lastName || ''}
           placeholder='Last name'
           required
           className='form-control'
@@ -80,8 +87,10 @@ const ShippingForm = ({setIsShippingFormReady}) => {
         <input
           type='tel'
           name='phone'
-          value={shippingInfo.phone}
+          value={shippingInfo.phone || ''}
           placeholder='Phone number'
+          pattern='^\+?[1-9][0-9]{9,15}$'
+          title='Please enter a valid phone number'
           required
           className='form-control'
           onChange={handleInputChange}
@@ -91,7 +100,7 @@ const ShippingForm = ({setIsShippingFormReady}) => {
         <input
           type='text'
           name='address1'
-          value={shippingInfo.address1}
+          value={shippingInfo.address1 || ''}
           placeholder='Address'
           required
           className='form-control'
@@ -102,7 +111,7 @@ const ShippingForm = ({setIsShippingFormReady}) => {
         <input
           type='text'
           name='city'
-          value={shippingInfo.city}
+          value={shippingInfo.city || ''}
           placeholder='City'
           required
           className='form-control'
@@ -113,7 +122,7 @@ const ShippingForm = ({setIsShippingFormReady}) => {
         <input
           type='text'
           name='countryCode'
-          value={shippingInfo.countryCode}
+          value={shippingInfo.countryCode || ''}
           placeholder='Country code'
           required
           className='form-control'
@@ -124,7 +133,7 @@ const ShippingForm = ({setIsShippingFormReady}) => {
         <input
           type='text'
           name='postalCode'
-          value={shippingInfo.postalCode}
+          value={shippingInfo.postalCode || ''}
           placeholder='Postal code'
           required
           className='form-control'
@@ -140,6 +149,7 @@ const ShippingForm = ({setIsShippingFormReady}) => {
                 id={method.id}
                 name='shippingMethod'
                 value={method.id}
+                required
                 onChange={handleShippingMethodChange}
               />
               <label htmlFor={method.id} className='mx-2'>
@@ -153,7 +163,9 @@ const ShippingForm = ({setIsShippingFormReady}) => {
           <p>No shipping methods available!</p>
         )}
 
-        <button type='submit' class="btn btn-danger">Next: Payment</button>
+        <button type='submit' className='btn btn-danger'>
+          Next: Payment
+        </button>
       </form>
     </div>
   );
