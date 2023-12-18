@@ -7,6 +7,10 @@ import {
   getAddShippingMethodsEndpoint,
   getShippingMethodsEndpoint,
   getAddShippingAddressEndpoint,
+  getAddBillingAddressEndpoint,
+  getPaymentMethodsEndpoint,
+  getAddPaymentInstrumentsEndpoint,
+  CREATE_ORDER_URL,
 } from '../endpoints/shopApi';
 
 export const getProduct = async (productId) => {
@@ -42,4 +46,24 @@ export const getShippingMethods = async (basketId, shippingMethodId) => {
 export const addShippingAddress = async (basketId, shipmentId, shippingData) => {
   const shippingAddress = await put(getAddShippingAddressEndpoint(basketId, shipmentId), shippingData);
   return shippingAddress;
+};
+
+export const addBillingAddress = async (basketId, shippingData) => {
+  const billingAddress = await put(getAddBillingAddressEndpoint(basketId), shippingData);
+  return billingAddress;
+};
+
+export const getPaymentMethods = async (basketId) => {
+  const paymentMethods = await get(getPaymentMethodsEndpoint(basketId));
+  return paymentMethods;
+};
+
+export const addPaymentInstrument = async (basketId, paymentData) => {
+  const paymentInstrument = await post(getAddPaymentInstrumentsEndpoint(basketId), paymentData);
+  return paymentInstrument;
+};
+
+export const createOrder = async (basketId) => {
+  const order = await post(CREATE_ORDER_URL, {"basket_id": basketId});
+  return order;
 };

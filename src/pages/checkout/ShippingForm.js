@@ -58,13 +58,14 @@ const ShippingForm = ({ setIsShippingFormReady }) => {
   };
 
   return (
-    <div className='d-flex align-items-center flex-column'>
-      <h3 className='mt-4'>Shipping</h3>
-      <form onSubmit={handleSubmit} className='mb-5'>
+    <div className='container'>
+      <h3 className='mt-4 text-center'>Shipping</h3>
+      <form onSubmit={handleSubmit} className='mb-5 d-flex flex-column'>
         <label htmlFor='firstName' className='form-label'></label>
         <input
           type='text'
           name='firstName'
+          id='firstName'
           value={shippingInfo.firstName || ''}
           placeholder='First name'
           required
@@ -76,6 +77,7 @@ const ShippingForm = ({ setIsShippingFormReady }) => {
         <input
           type='text'
           name='lastName'
+          id='lastName'
           value={shippingInfo.lastName || ''}
           placeholder='Last name'
           required
@@ -87,6 +89,7 @@ const ShippingForm = ({ setIsShippingFormReady }) => {
         <input
           type='tel'
           name='phone'
+          id='phone'
           value={shippingInfo.phone || ''}
           placeholder='Phone number'
           pattern='^\+?[1-9][0-9]{9,15}$'
@@ -100,6 +103,7 @@ const ShippingForm = ({ setIsShippingFormReady }) => {
         <input
           type='text'
           name='address1'
+          id='address1'
           value={shippingInfo.address1 || ''}
           placeholder='Address'
           required
@@ -111,6 +115,7 @@ const ShippingForm = ({ setIsShippingFormReady }) => {
         <input
           type='text'
           name='city'
+          id='city'
           value={shippingInfo.city || ''}
           placeholder='City'
           required
@@ -122,6 +127,7 @@ const ShippingForm = ({ setIsShippingFormReady }) => {
         <input
           type='text'
           name='countryCode'
+          id='countryCode'
           value={shippingInfo.countryCode || ''}
           placeholder='Country code'
           required
@@ -133,6 +139,7 @@ const ShippingForm = ({ setIsShippingFormReady }) => {
         <input
           type='text'
           name='postalCode'
+          id='postalCode'
           value={shippingInfo.postalCode || ''}
           placeholder='Postal code'
           required
@@ -140,10 +147,10 @@ const ShippingForm = ({ setIsShippingFormReady }) => {
           onChange={handleInputChange}
         ></input>
 
-        <h3 className='my-4'>Shipping Method</h3>
+        <h3 className='my-4 text-center'>Shipping Method</h3>
         {shippingMethods ? (
           shippingMethods.map((method) => (
-            <div key={method.id}>
+            <div key={method.id} className='d-block'>
               <input
                 type='radio'
                 id={method.id}
@@ -163,9 +170,11 @@ const ShippingForm = ({ setIsShippingFormReady }) => {
           <p>No shipping methods available!</p>
         )}
 
-        <button type='submit' className='btn btn-danger'>
-          Next: Payment
-        </button>
+        <div className='text-center'>
+          <button type='submit' className='btn btn-danger mt-4'>
+            Next: Billing Address
+          </button>
+        </div>
       </form>
     </div>
   );

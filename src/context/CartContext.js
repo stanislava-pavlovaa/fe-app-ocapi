@@ -6,7 +6,11 @@ export const useCartContext = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState({});
+  const [order, setOrder] = useState(null);
   const [totalQuantity, setTotalQuantity] = useState(0);
+
+  console.log('cart', cart);
+  console.log('order', order);
 
   useEffect(() => {
     if (cart && cart.product_items) {
@@ -19,7 +23,7 @@ export const CartProvider = ({ children }) => {
   }, [cart]);
 
   return (
-    <CartContext.Provider value={{ cart, setCart, totalQuantity, setTotalQuantity }}>
+    <CartContext.Provider value={{ cart, setCart, order, setOrder, totalQuantity, setTotalQuantity }}>
       {children}
     </CartContext.Provider>
   );

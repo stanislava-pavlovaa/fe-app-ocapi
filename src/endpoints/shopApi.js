@@ -23,3 +23,9 @@ export const getShippingMethodsEndpoint = (basketId, shipmentId) => `${BASE_URL}
 export const getAddShippingAddressEndpoint = (basketId, shipmentId) => `${BASE_URL}/baskets/${basketId}/shipments/${shipmentId}/shipping_address`;
 
 export const getAddBillingAddressEndpoint = (basketId) => `${BASE_URL}/baskets/${basketId}/billing_address`;
+
+export const getPaymentMethodsEndpoint = (basketId) => `${BASE_URL}/baskets/${basketId}/payment_methods`;
+
+export const getAddPaymentInstrumentsEndpoint = (basketId) => `${BASE_URL}/baskets/${basketId}/payment_instruments`;
+
+export const CREATE_ORDER_URL = `${BASE_URL}/orders`; 

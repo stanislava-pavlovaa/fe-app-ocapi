@@ -15,15 +15,15 @@ export const getJWTToken = async () => {
 
   if (jwtToken) {
     request.headers.Authorization = jwtToken;
-  }
-
-  try {
-    const response = await fetch(AUTH_URL, request);
-    const token = response.headers.get('authorization');
-    localStorage.setItem('token', token);
-    return token;
-  } catch (err) {
-    console.error(err);
+  } else {
+    try {
+      const response = await fetch(AUTH_URL, request);
+      const token = response.headers.get('authorization');
+      localStorage.setItem('token', token);
+      return token;
+    } catch (err) {
+      console.error(err);
+    }
   }
 };
 

@@ -1,27 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useCartContext } from '../../context/CartContext';
-import { addBillingAddress, getPaymentMethods } from '../../service/shopService';
+import { addBillingAddress } from '../../service/shopService';
 import { createAddressBody } from '../../utils/Forms';
 
 const BillingForm = ({ setIsBillingFormReady }) => {
   const { cart, setCart } = useCartContext();
   const basketId = cart?.basket_id;
-  const [paymentMethods, setPaymentMethods] = useState([]);
   const [billingInfo, setBillingInfo] = useState({});
-  
-  useEffect(() => {
-    const fetchPaymentMethods = async () => {
-      try {
-        const methods = await getPaymentMethods(basketId);
-        console.log(methods);
-        setPaymentMethods(methods.applicable_payment_methods);
-      } catch (error) {
-        console.error('Error fetching payment methods:', error);
-      }
-    };
-
-    fetchPaymentMethods();
-  }, [basketId]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -53,6 +38,7 @@ const BillingForm = ({ setIsBillingFormReady }) => {
         <input
           type='text'
           name='firstName'
+          id='firstName'
           value={billingInfo.firstName || ''}
           placeholder='First name'
           required
@@ -64,6 +50,7 @@ const BillingForm = ({ setIsBillingFormReady }) => {
         <input
           type='text'
           name='lastName'
+          id='lastName'
           value={billingInfo.lastName || ''}
           placeholder='Last name'
           required
@@ -75,6 +62,7 @@ const BillingForm = ({ setIsBillingFormReady }) => {
         <input
           type='tel'
           name='phone'
+          id='phone'
           value={billingInfo.phone || ''}
           placeholder='Phone number'
           pattern='^\+?[1-9][0-9]{9,15}$'
@@ -88,6 +76,7 @@ const BillingForm = ({ setIsBillingFormReady }) => {
         <input
           type='text'
           name='address1'
+          id='address1'
           value={billingInfo.address1 || ''}
           placeholder='Address'
           required
@@ -99,6 +88,7 @@ const BillingForm = ({ setIsBillingFormReady }) => {
         <input
           type='text'
           name='city'
+          id='city'
           value={billingInfo.city || ''}
           placeholder='City'
           required
@@ -110,6 +100,7 @@ const BillingForm = ({ setIsBillingFormReady }) => {
         <input
           type='text'
           name='countryCode'
+          id='countryCode'
           value={billingInfo.countryCode || ''}
           placeholder='Country code'
           required
@@ -121,6 +112,7 @@ const BillingForm = ({ setIsBillingFormReady }) => {
         <input
           type='text'
           name='postalCode'
+          id='postalCode'
           value={billingInfo.postalCode || ''}
           placeholder='Postal code'
           required
@@ -130,7 +122,7 @@ const BillingForm = ({ setIsBillingFormReady }) => {
 
         <div className='text-center'>
           <button type='submit' className='btn btn-danger mt-4'>
-            Finish order
+            Next: Payment
           </button>
         </div>
       </form>
