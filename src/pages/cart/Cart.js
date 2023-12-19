@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import ProductTile from './ProductTile';
+import ProductTile from '../../components/cart/ProductTile';
 
 const Cart = () => {
   const { cart } = useCartContext();

@@ -1,9 +1,17 @@
+import { useState } from 'react';
 import { useCartContext } from '../../context/CartContext';
 import { createBasket, addProductToCart } from '../../service/shopService';
 import Button from 'react-bootstrap/Button';
 
-const AddToCartBtn = ({ productId, quantity, isOrderable }) => {
+const AddToCartBtn = ({
+  productId,
+  quantity,
+  isOrderable,
+  selectedVariations,
+  variationAttributes,
+}) => {
   const { cart, setCart } = useCartContext();
+  const [selectVariationsError, setSelectVariationsError] = useState('');
 
   let basketId = localStorage.getItem('basket');
   const basketExists = basketId !== null;
@@ -11,6 +19,16 @@ const AddToCartBtn = ({ productId, quantity, isOrderable }) => {
   const handleAddToCart = async () => {
     try {
       let basket;
+      console.log('selectedVariations', selectedVariations);
+      console.log('variationAttributes,', variationAttributes)
+      const allVariationsSelected = variationAttributes
+        ? Object.keys(selectedVariations).length === variationAttributes.length
+        : true;
+
+      if (!allVariationsSelected) {
+        setSelectVariationsError('Please select all required variations.');
+        return;
+      }
 
       if (!basketExists) {
         basket = await createBasket();
@@ -34,7 +52,14 @@ const AddToCartBtn = ({ productId, quantity, isOrderable }) => {
 
   return (
     <div>
-      <Button onClick={handleAddToCart} variant="danger" disabled={!isOrderable}>
+      {selectVariationsError && (
+        <div className='text-danger my-2'>{selectVariationsError}</div>
+      )}
+      <Button
+        onClick={handleAddToCart}
+        variant='danger'
+        disabled={!isOrderable}
+      >
         Add to Cart
       </Button>
     </div>

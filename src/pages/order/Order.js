@@ -5,7 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 const Order = () => {
   const { order } = useCartContext();
   const { contentAsset } = useContentAsset('ocapi-order-submit-message');
-
+  
   if (order && contentAsset) {
     const contentAssetBody = contentAsset.replace(/\${orderID}/, order.order_no);
 

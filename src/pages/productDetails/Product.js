@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import ImageCarousel from './Carousel';
-import VariationAttributes from './VariationAttributes';
-import Quantity from'./Quantity'
+import ImageCarousel from '../../components/product/Carousel';
+import VariationAttributes from '../../components/product/VariationAttributes';
+import Quantity from '../../components/product/Quantity';
 import AddToCartBtn from './AddToCartBtn';
 
 const Product = ({ product }) => {
   const [variatonAttributes, setVariatonAttributes] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [selectedProductId, setSelectedProductId] = useState(product.variants[0].product_id);
+  const [selectedVariations, setSelectedVariations] = useState({});
   
   useEffect(() => {
     setVariatonAttributes(product.variation_attributes);
@@ -23,6 +24,11 @@ const Product = ({ product }) => {
         setSelectedProductId(selectedVariant.product_id);
       }
     }
+
+    setSelectedVariations((prevSelections) => ({
+      ...prevSelections,
+      [name]: value,
+    }));
   };
 
   return (
@@ -39,7 +45,7 @@ const Product = ({ product }) => {
                 <p className='my-3'>{product.short_description}</p>
                 <VariationAttributes variatonAttributes={variatonAttributes} onSelectionChange={handleVariationSelection}/>
                 <Quantity quantity={quantity} setQuantity={setQuantity}/>
-                <AddToCartBtn productId={selectedProductId} quantity={quantity} isOrderable={product.inventory.orderable} />
+                <AddToCartBtn productId={selectedProductId} quantity={quantity} isOrderable={product.inventory.orderable} selectedVariations={selectedVariations} variationAttributes={variatonAttributes} />
             </section>
         </div>
     </div>

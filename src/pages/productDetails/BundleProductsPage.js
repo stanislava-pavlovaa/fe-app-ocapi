@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import BundleProduct from './BundleProduct';
-import Quantity from './Quantity';
+import Quantity from '../../components/product/Quantity';
 import AddToCartBtn from './AddToCartBtn';
 
 const BundleProductPage = ({ products }) => {
