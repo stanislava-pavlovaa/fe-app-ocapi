@@ -1,35 +1,41 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ImageCarousel from '../../components/product/Carousel';
 import VariationAttributes from '../../components/product/VariationAttributes';
 import Quantity from '../../components/product/Quantity';
 import AddToCartBtn from './AddToCartBtn';
 
 const Product = ({ product }) => {
-  const [variatonAttributes, setVariatonAttributes] = useState([]);
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const [selectedProductId, setSelectedProductId] = useState(product.variants[0].product_id);
+  const [variatonAttributes, setVariatonAttributes] = useState([]);
   const [selectedVariations, setSelectedVariations] = useState({});
   
   useEffect(() => {
     setVariatonAttributes(product.variation_attributes);
-  }, [product.variation_attributes])
+  }, [ product.variation_attributes])
   
   const handleVariationSelection = (name, value) => {
-    if (name.toLowerCase() === 'size') {
-      const selectedVariant = product.variants.find(
-        (variant) => variant.variation_values[name] === value
-      );
-
-      if (selectedVariant) {
-        setSelectedProductId(selectedVariant.product_id);
-      }
-    }
-
     setSelectedVariations((prevSelections) => ({
       ...prevSelections,
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    const selectedVariant = product.variants.find((variant) =>
+      Object.entries(selectedVariations).every(
+        ([key, val]) => variant.variation_values[key] === val
+      )
+    );
+
+    if (selectedVariant) {
+      setSelectedProductId(selectedVariant.product_id);
+      navigate(`/${selectedVariant.product_id}`);
+    }
+    
+  }, [selectedVariations, product.variants]);
 
   return (
     <div className='container my-5'>
