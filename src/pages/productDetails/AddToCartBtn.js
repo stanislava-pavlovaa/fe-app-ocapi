@@ -19,8 +19,7 @@ const AddToCartBtn = ({
   const handleAddToCart = async () => {
     try {
       let basket;
-      console.log('selectedVariations', selectedVariations);
-      console.log('variationAttributes,', variationAttributes)
+      
       const allVariationsSelected = variationAttributes
         ? Object.keys(selectedVariations).length === variationAttributes.length
         : true;
