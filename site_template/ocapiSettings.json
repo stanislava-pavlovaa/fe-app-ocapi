@@ -1,0 +1,53 @@
+{
+    "_v": "23.2",
+    "clients": [
+      {
+        "allowed_origins": ["http://127.0.0.1:3000"],
+        "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "resources": [
+          {
+            "resource_id": "/customers/auth",
+            "methods": ["post"],
+            "read_attributes": "(**)",
+            "write_attributes": "(**)"
+          },
+          {
+            "resource_id": "/customers/**",
+            "methods": ["get", "post"],
+            "read_attributes": "(**)",
+            "write_attributes": "(**)"
+          },
+          {
+            "resource_id": "/content/**",
+            "methods": ["get"],
+            "read_attributes": "(**)",
+            "write_attributes": "(**)"
+          },
+         {
+            "resource_id": "/products/**",
+            "methods": ["get"],
+            "read_attributes": "(**)",
+            "write_attributes": "(**)"
+          },
+          {
+            "resource_id":"/baskets",
+            "methods":["post"],
+            "read_attributes":"(**)",
+            "write_attributes":"(**)"
+          },
+          {
+            "resource_id":"/baskets/**",
+            "methods":["get","post","put","delete"],
+            "read_attributes":"(**)",
+            "write_attributes":"(**)"
+          },
+          {
+            "resource_id":"/orders",
+            "methods":["post"],
+            "read_attributes":"(**)",
+            "write_attributes":"(**)"
+          }
+        ]
+      }
+    ]
+}
