@@ -12,12 +12,9 @@ import Cart from './pages/cart/Cart';
 import HomePage from './pages/home/Homepage';
 import Checkout from './pages/checkout/Checkout';
 import Order from './pages/order/Order';
+import PageNotFound from './pages/notFound/pageNotFound';
 
-const ProductDetailsPage = lazy(() =>
-  import('./pages/productDetails/ProductDetailsPage')
-);
-
-const PageNotFound = lazy(() => import('./pages/notFound/pageNotFound'));
+const ProductDetailsPage = lazy(() =>import('./pages/productDetails/ProductDetailsPage'));
 
 const App = () => {
   getJWTToken();
