@@ -46,7 +46,7 @@ const requestData = async (method, url, data) => {
     const responseData = await res.json();
     return responseData;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

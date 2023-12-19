@@ -1,5 +1,4 @@
 const BundleProduct = ({ product: { product } }) => {
-  console.log('b product', product);
   return (
     <div className='py-4 border-bottom'>
       <div className='row'>

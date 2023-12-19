@@ -19,12 +19,12 @@ const ProductTile = ({ item }) => {
         <Card.Title>{item.product_name}</Card.Title>
         <Card.Text>Quantity: {item.quantity}</Card.Text>
         <Card.Subtitle className='mb-2 text-muted'>
-          Total Price: {item.price} {cart.currency}
+          Price: {item.price} {cart.currency}
         </Card.Subtitle>
         <Card.Subtitle className='mb-2 text-muted'>
           Price after discount: {item.price_after_item_discount} {cart.currency}
         </Card.Subtitle>
-        <Button variant='danger' onClick={() => handleRemoveItem(item.item_id)}>
+        <Button variant='danger' onClick={() => handleRemoveItem(item.item_id)} className='mt-2'>
           Remove
         </Button> 
       </Card.Body>

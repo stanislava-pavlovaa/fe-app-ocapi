@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
-
 const VariationAttributes = ({ variatonAttributes, onSelectionChange }) => {
   const [selectedVariations, setSelectedVariations] = useState({});
 
@@ -45,47 +44,3 @@ const VariationAttributes = ({ variatonAttributes, onSelectionChange }) => {
 };
 
 export default VariationAttributes;
-
-// import { useState } from 'react';
-
-// const VariationAttributes = ({ variatonAttributes, onSizeChange }) => {
-//   const [selectedSize, setSelectedSize] = useState('');
-//   console.log(variatonAttributes)
-//   const handleSizeChange = (event) => {
-//     const newSize = event.target.value;
-//     setSelectedSize(newSize);
-//     onSizeChange(newSize);
-//   };
-
-//   return (
-//     <div>
-//       {variatonAttributes.map((attribute, index) => {
-//         if (attribute.values && attribute.values.length > 0) {
-//           return (
-//             <div key={attribute.id} className='mb-3'>
-//               <label htmlFor={attribute.id} className='form-label'>
-//                 {attribute.name}
-//               </label>
-//               <select
-//                 id={attribute.id}
-//                 className='form-select'
-//                 onChange={handleSizeChange}
-//                 value={selectedSize}
-//               >
-//                 <option value=''>Select {attribute.name}</option>
-//                 {attribute.values.map((value) => (
-//                   <option key={value.value} value={value.value}>
-//                     {value.name}
-//                   </option>
-//                 ))}
-//               </select>
-//             </div>
-//           );
-//         }
-//         return null;
-//       })}
-//     </div>
-//   );
-// };
-
-// export default VariationAttributes;

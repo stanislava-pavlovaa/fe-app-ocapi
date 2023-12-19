@@ -6,7 +6,7 @@ import ShoppingBag from './ShoppingBag';
 const Header = () => {
 
   return (
-    <div className='header'>
+    <div className='header d-flex justify-content-between align-items-center'>
       <Link to='' className='header__logo'>
         <img src={logo} alt='Logo' />
       </Link>

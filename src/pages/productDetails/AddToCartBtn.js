@@ -1,5 +1,4 @@
 import { useCartContext } from '../../context/CartContext';
-import { getExistingBasketEndpoint } from '../../endpoints/shopApi';
 import { createBasket, addProductToCart } from '../../service/shopService';
 import Button from 'react-bootstrap/Button';
 

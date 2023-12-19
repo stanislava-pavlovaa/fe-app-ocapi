@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useCartContext } from '../../context/CartContext';
-import {
-  addPaymentInstrument,
-  createOrder,
-  getPaymentMethods,
-} from '../../service/shopService';
+import { addPaymentInstrument, createOrder, getPaymentMethods } from '../../service/shopService';
 import { createPaymentBody } from '../../utils/Forms';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +11,7 @@ const PaymentForm = () => {
   const [selectedCardId, setSelectedCardId] = useState('');
   const [showCreditCardFields, setShowCreditCardFields] = useState(false);
   const [paymentInfo, setPaymentInfo] = useState({});
+  const [expirationError, setExpirationError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,17 +43,32 @@ const PaymentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1; 
+
+    if (+paymentInfo.expirationYear === currentYear && +paymentInfo.expirationMonth < currentMonth) {
+      setExpirationError('Invalid expiration date');
+      return; // Stop form submission if there is an expiration error
+    } else {
+      setExpirationError('');
+    }
+
     try {
-      const formData = createPaymentBody(cart.order_total, paymentInfo, selectedCardId);
+      const formData = createPaymentBody(
+        cart.order_total,
+        paymentInfo,
+        selectedCardId
+      );
       const paymentInstrument = await addPaymentInstrument(basketId, formData);
       const order = await createOrder(basketId);
       setCart(paymentInstrument);
       setOrder(order);
+      localStorage.removeItem('basket');
     } catch (error) {
       console.error('Error updating cart:', error);
     }
 
-    navigate('/order')
+    navigate('/order');
   };
 
   return (
@@ -95,6 +107,8 @@ const PaymentForm = () => {
             placeholder='4444333322221111'
             required
             className='form-control'
+            minLength={13}
+            maxLength={16}
             onChange={handleInputChange}
           />
 
@@ -151,6 +165,10 @@ const PaymentForm = () => {
               </select>
             </div>
           </div>
+          {expirationError && (
+            <div className='text-danger mt-2'>{expirationError}</div>
+          )}
+
           <div className='row'>
             <div className='col-6'>
               <label
@@ -168,6 +186,8 @@ const PaymentForm = () => {
                 placeholder='123'
                 required
                 className='form-control'
+                minLength={3}
+                maxLength={4}
                 onChange={handleInputChange}
               />
             </div>

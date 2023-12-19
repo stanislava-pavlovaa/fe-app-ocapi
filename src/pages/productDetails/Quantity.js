@@ -1,3 +1,5 @@
+import Button from 'react-bootstrap/Button';
+
 const Quantity = ({ quantity, setQuantity }) => {
   const handleQuantity = (amount) => {
     const newQuantity = quantity + amount;
@@ -10,19 +12,21 @@ const Quantity = ({ quantity, setQuantity }) => {
   return (
     <div className='my-3'>
       <label className='mx-2'>Quantity:</label>
-      <button
-        className='btn btn-danger btn-sm'
+      <Button
+        className='rounded-circle btn-sm'
+        variant='danger'
         onClick={() => handleQuantity(-1)}
       >
         -
-      </button>
+      </Button>
       <span className='mx-2'>{quantity}</span>
-      <button
-        className='btn btn-danger btn-sm'
+      <Button
+        className='rounded-circle btn-sm'
+        variant='danger'
         onClick={() => handleQuantity(+1)}
       >
         +
-      </button>
+      </Button>
     </div>
   );
 };

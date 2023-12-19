@@ -5,7 +5,6 @@ import AddToCartBtn from './AddToCartBtn';
 
 const BundleProductPage = ({ products }) => {
   const [quantity, setQuantity] = useState(1);
-  console.log('Bundle products', products);
   return (
     <div className='container py-4'>
       <div className='border-bottom pb-4'>
@@ -26,7 +25,7 @@ const BundleProductPage = ({ products }) => {
           <div className='col-12 col-sm-6'>
             <p className='border-top border-bottom p-2'>
               Item No.{' '}
-              <span className='italic' style={{ fontStyle: 'italic' }}>
+              <span>
                 {products.id}
               </span>
             </p>
@@ -37,7 +36,6 @@ const BundleProductPage = ({ products }) => {
       {products.bundled_products.map((product, key) => {
         return <BundleProduct product={product} key={key} />;
       })}
-      {/* <div className='container my-3 d-flex flex-column align-items-center justify-content-center'> */}
       <div className='my-3 col-12 col-sm-6 offset-sm-6 d-flex flex-column align-items-center justify-content-center'>
         <Quantity quantity={quantity} setQuantity={setQuantity} />
         <p className='px-2'>

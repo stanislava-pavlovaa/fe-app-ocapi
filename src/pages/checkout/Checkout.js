@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ShippingForm from './ShippingForm';
 import BillingForm from './BillingForm';
+import PaymentForm from './PaymentForm';
 
 const Checkout = () => {
   const [isShippingFormReady, setIsShippingFormReady] = useState(false);
@@ -11,10 +12,8 @@ const Checkout = () => {
   } else if (isShippingFormReady && !isBillingFormReady) {
     return <BillingForm setIsBillingFormReady={setIsBillingFormReady} />;
   } else if (isShippingFormReady && isBillingFormReady) {
-    return (
-      <p>Ready</p>
-    );
-  }
+    return <PaymentForm />;
+  } 
 };
 
 export default Checkout;

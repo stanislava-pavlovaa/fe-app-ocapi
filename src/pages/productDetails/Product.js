@@ -8,13 +8,11 @@ const Product = ({ product }) => {
   const [variatonAttributes, setVariatonAttributes] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [selectedProductId, setSelectedProductId] = useState(product.variants[0].product_id);
-
-  console.log(product);
-
+  
   useEffect(() => {
     setVariatonAttributes(product.variation_attributes);
   }, [product.variation_attributes])
-
+  
   const handleVariationSelection = (name, value) => {
     if (name.toLowerCase() === 'size') {
       const selectedVariant = product.variants.find(
@@ -41,7 +39,7 @@ const Product = ({ product }) => {
                 <p className='my-3'>{product.short_description}</p>
                 <VariationAttributes variatonAttributes={variatonAttributes} onSelectionChange={handleVariationSelection}/>
                 <Quantity quantity={quantity} setQuantity={setQuantity}/>
-                <AddToCartBtn productId={selectedProductId} quantity={quantity} isOrderable={product.inventory.orderable}/>
+                <AddToCartBtn productId={selectedProductId} quantity={quantity} isOrderable={product.inventory.orderable} />
             </section>
         </div>
     </div>

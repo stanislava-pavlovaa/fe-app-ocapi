@@ -9,9 +9,6 @@ export const CartProvider = ({ children }) => {
   const [order, setOrder] = useState(null);
   const [totalQuantity, setTotalQuantity] = useState(0);
 
-  console.log('cart', cart);
-  console.log('order', order);
-
   useEffect(() => {
     if (cart && cart.product_items) {
       const newTotalQuantity = cart.product_items.reduce(

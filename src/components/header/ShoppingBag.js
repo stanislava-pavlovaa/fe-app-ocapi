@@ -6,10 +6,9 @@ const ShoppingBag = () => {
   const { totalQuantity } = useCartContext();
 
   return (
-    <NavLink className='header__bag' to='/cart'>
+    <NavLink className='d-flex align-items-center position-relative text-white' to='/cart'>
       <AiOutlineShoppingCart size={30} />
-
-      <span className='header__bag-count'>{totalQuantity}</span>
+      <span className='header__bag-count badge bg-danger text-white position-absolute top-50 end-0'>{totalQuantity}</span>
     </NavLink>
   );
 };
