@@ -40,10 +40,10 @@ const Product = ({ product }) => {
   return (
     <div className='container my-5'>
         <div className="row">
-            <section className='col-6'>
+            <section className='col-12 col-md-6'>
               <ImageCarousel images={product.image_groups[0].images}/>
             </section>
-            <section className='col-6'>
+            <section className='col-12 col-md-6'>
                 <h2>{product.name}</h2>
                 <span className={product.inventory.orderable ? 'text-success': 'text-danger'}>{product.inventory.orderable ? 'In stock': 'Out of stock'}</span>
                 <p>Product ID: {selectedProductId}</p>
