@@ -3,6 +3,11 @@ import Button from 'react-bootstrap/Button';
 
 const VariationAttributes = ({ variatonAttributes, onSelectionChange }) => {
   const [selectedVariations, setSelectedVariations] = useState({});
+  
+  if (!variatonAttributes) {
+    return null; // or render some fallback content
+  }
+  
 
   const handleSelectionChange = (name, value) => {
     setSelectedVariations((prevSelections) => ({

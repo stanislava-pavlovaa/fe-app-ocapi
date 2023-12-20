@@ -18,7 +18,7 @@ const Cart = () => {
           ))}
         </div>
         <h5>Total Price: {cart.product_total} {cart.currency}</h5>
-        <div className='d-flex gap-4 mt-3'>
+        <div className='d-flex gap-4 my-3'>
           <Button onClick={() => navigate(-1)} variant='outline-danger'>Back</Button>
           <Link to="/checkout" className='btn btn-danger'>Checkout</Link>
         </div>

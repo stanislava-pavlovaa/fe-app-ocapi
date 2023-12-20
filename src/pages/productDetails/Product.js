@@ -6,9 +6,10 @@ import Quantity from '../../components/product/Quantity';
 import AddToCartBtn from './AddToCartBtn';
 
 const Product = ({ product }) => {
+  console.log(product)
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
-  const [selectedProductId, setSelectedProductId] = useState(product.variants[0].product_id);
+  const [selectedProductId, setSelectedProductId] = useState(product.variants?.[0]?.product_id || product.id);
   const [variatonAttributes, setVariatonAttributes] = useState([]);
   const [selectedVariations, setSelectedVariations] = useState({});
   
@@ -24,18 +25,19 @@ const Product = ({ product }) => {
   };
 
   useEffect(() => {
-    const selectedVariant = product.variants.find((variant) =>
-      Object.entries(selectedVariations).every(
-        ([key, val]) => variant.variation_values[key] === val
-      )
-    );
-
-    if (selectedVariant) {
-      setSelectedProductId(selectedVariant.product_id);
-      navigate(`/${selectedVariant.product_id}`);
+    if (product.variants && product.variants.length > 0 && selectedVariations) {
+      const selectedVariant = product.variants.find((variant) =>
+        Object.entries(selectedVariations).every(
+          ([key, val]) => variant.variation_values[key] === val
+        )
+      );
+  
+      if (selectedVariant) {
+        setSelectedProductId(selectedVariant.product_id);
+        navigate(`/${selectedVariant.product_id}`);
+      }
     }
-    
-  }, [selectedVariations, product.variants]);
+  }, [selectedVariations, product.variants, navigate]);
 
   return (
     <div className='container my-5'>
