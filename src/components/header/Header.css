@@ -1,0 +1,15 @@
+.header {
+  background-color: black;
+  padding: 10px 30px;
+}
+
+.header__logo img {
+  height: 75px;
+}
+
+.header__bag-count {
+  border-radius: 50%;
+  padding: 5px 8px;
+  font-size: 14px;
+  transform: translate(50%, 0%);
+}

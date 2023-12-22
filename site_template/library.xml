@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library xmlns="http://www.demandware.com/xml/impex/library/2006-10-31" library-id="RefArchSharedLibrary">
+    <content content-id="ocapi-footer">
+        <online-flag>true</online-flag>
+        <searchable-flag>false</searchable-flag>
+        <page-attributes/>
+        <custom-attributes>
+            <custom-attribute attribute-id="body" xml:lang="x-default">&lt;a href="/" class="text-white text-decoration-none px-3"&gt;Home&lt;/a&gt;&#13;
+                &lt;a href="/701644329389M" class="text-white text-decoration-none px-3"&gt;Shop&lt;/a&gt;&#13;
+                &lt;a href="https://www.c4nexus.com/" class="text-white text-decoration-none px-3"&gt;C4 Nexus&lt;/a&gt;
+            </custom-attribute>
+        </custom-attributes>
+    </content>
+
+    <content content-id="ocapi-order-submit-message">
+        <display-name xml:lang="x-default">Ocapi order submit message</display-name>
+        <online-flag>true</online-flag>
+        <searchable-flag>false</searchable-flag>
+        <page-attributes/>
+        <custom-attributes>
+            <custom-attribute attribute-id="body" xml:lang="x-default">Thank you for your order ${orderID}! Very soon our representative will contact you to confirm the shipment.</custom-attribute>
+        </custom-attributes>
+    </content>
+</library>

@@ -1,0 +1,11 @@
+.footer {
+  background: #000;
+}
+
+.footer .row {
+  color: gray;
+}
+
+.row.italic {
+  font-style: italic;
+}
