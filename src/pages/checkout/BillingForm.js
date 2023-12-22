@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCartContext } from '../../context/CartContext';
 import { addBillingAddress } from '../../service/shopService';
 import { createAddressBody } from '../../utils/Forms';
@@ -7,6 +7,37 @@ const BillingForm = ({ setIsBillingFormReady }) => {
   const { cart, setCart } = useCartContext();
   const basketId = cart?.basket_id;
   const [billingInfo, setBillingInfo] = useState({});
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (isChecked && cart.shipments[0]?.shipping_address) {
+      const {
+        address1,
+        city,
+        country_code,
+        first_name,
+        last_name,
+        phone,
+        postal_code,
+      } = cart.shipments[0].shipping_address;
+
+      setBillingInfo({
+        address1,
+        city,
+        countryCode: country_code,
+        firstName: first_name,
+        lastName: last_name,
+        phone,
+        postalCode: postal_code,
+      });
+    } else {
+      setBillingInfo({});
+    }
+  }, [isChecked, cart.shipments]);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -33,6 +64,15 @@ const BillingForm = ({ setIsBillingFormReady }) => {
   return (
     <div className='container'>
       <h3 className='mt-4 text-center'>Billing</h3>
+      <div className='d-flex align-items-center'>
+        <input
+          type='checkbox'
+          checked={isChecked}
+          onChange={handleCheckboxChange}
+        />
+        <label className='mx-2'>Same as shipping</label>
+      </div>
+
       <form onSubmit={handleSubmit} className='mb-5 d-flex flex-column'>
         <label htmlFor='firstName' className='form-label'></label>
         <input
