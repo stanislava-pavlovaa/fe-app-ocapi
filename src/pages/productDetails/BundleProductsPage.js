@@ -44,6 +44,7 @@ const BundleProductPage = ({ products }) => {
             {products.inventory.orderable ? 'In stock' : 'Out of stock'}
           </span>
         </p>
+        <h4 className='my-3'>{products.price} {products.currency}</h4>
         <AddToCartBtn
           productId={products.id}
           quantity={quantity}
